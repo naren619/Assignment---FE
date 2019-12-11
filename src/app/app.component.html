@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <label>
+
+              <!-- input field for uploading CSV -->
+              <input type="file" #csvReader name="upload_csv" id="txtFileUpload" (change)="fileUploader($event)" accept=".csv" />  
+            </label>
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4" *ngIf="recordList.length > 0">
+            <label class="pull-right">
+
+            <!-- input field for filtering thr issue count -->
+            <input type="text"  name="filterSearch" id="filterSearch" 
+            [(ngModel)] = "filterSearch" placeholder="Search Issue count" />  
+            </label>
+        </div>
+    </div> 
+
+    <!-- table for listing the CSV file records and filtering -->
+    <table id="csvTable" *ngIf="recordList.length > 0" >
+        <thead>
+            <tr>
+                <th *ngFor="let header of headerList;let i = index">{{header}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let record of recordList  | filter:filterSearch : 'Issue count'">
+                <td *ngFor="let header1 of headerList ; let k = index;">
+                    <div *ngIf="header1 == 'Date of birth'; else elseBlock">{{record[header1]  | date:'MM-dd-yyyy'}}</div>
+                    <ng-template #elseBlock>{{record[header1]}}</ng-template>
+                </td> 
+            </tr> 
+        </tbody>
+    </table>
+</div>
+<!-- <router-outlet></router-outlet> -->
