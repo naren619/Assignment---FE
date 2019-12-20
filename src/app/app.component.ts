@@ -13,7 +13,8 @@ export class AppComponent {
 	public recordList: any[] = [];			//  initializing for record list
 
   	fileUploader($event: any) {
-		let files = $event.srcElement.files;
+		
+		let files = $event.target.files || $event.srcElement.files;
 		
 		// conversion the csv format to JSON format
 
